@@ -37,7 +37,11 @@ let handle_key = function(key) {
 
 let handle_backspace = function() {
   if(errors === 0) {
-    // do nothing
+    if(current_character > 0) {
+      current_character -= 1;
+      let current_text_box = $(`#text-box span[data-index=${current_character}]`)
+      current_text_box.removeClass("good-code");
+    }
   } else {
     errors -= 1;
     $(".error").removeClass("error");
