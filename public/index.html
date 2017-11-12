@@ -3,13 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Typing Game</title>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <style>
       .text-box {
         border: 1px dashed black;
         min-height: 100px;
+        white-space: pre;
+        font-family: 'Cutive Mono', monospace;
+      }
+      .typing-box {
+        border: 1px dashed black;
+        min-height: 100px;
+        white-space: pre;
+        font-family: 'Cutive Mono', monospace;
+      }
+      #debug {
+        border: 1px dashed black;
+        min-height: 100px;
+        /*white-space: pre;*/
+        /*font-family: 'Cutive Mono', monospace;*/
       }
     </style>
   </head>
@@ -17,15 +31,35 @@
     <div class="container">
       <h1>Typing Game</h1>
       <div>Please type:</div>
-      <div class="text-box">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </div>
+      <div class="text-box">def fibIter(n):
+    if n < 2:
+        return n
+    fibPrev = 1
+    fib = 1
+    for num in xrange(2, n):
+        fibPrev, fib = fib, fib + fibPrev
+    return fib</div>
+  <div class="typing-box"></div>
       <div>
         Timer will start on first key press.
       </div>
       <div class="time">Time: <span>0</span>s</div>
       <div class="typing-rate">Typing rate: <span>0</span>wpm</div>
       <div class="accuracy">Accuracy: <span>100</span>%</div>
+      <div id="debug">   
+      </div>
+      
+      <script>
+        $(document).on("keydown", function(e){
+          if (e.keyCode >= 32 && e.keyCode <= 127) {
+            $(".typing-box").append(`<span>${e.key}</span>`);
+          } else if (e.key === "Enter") {
+            $(".typing-box").append(`<br/>`);
+          } else if (e.key == "Backspace") {
+            $(".typing-box").append(`🥔`);
+          }
+        })
+      </script>
     </div>
   </body>
 </html>
