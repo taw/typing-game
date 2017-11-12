@@ -1,0 +1,16 @@
+.text-box {
+  border: 1px dashed black;
+  min-height: 100px;
+  white-space: pre;
+  font-family: 'Cutive Mono', monospace;
+}
+.typing-box {
+  border: 1px dashed black;
+  min-height: 100px;
+  white-space: pre;
+  font-family: 'Cutive Mono', monospace;
+}
+#debug {
+  border: 1px dashed black;
+  min-height: 100px;
+}

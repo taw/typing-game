@@ -6,32 +6,13 @@
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
     <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <style>
-      .text-box {
-        border: 1px dashed black;
-        min-height: 100px;
-        white-space: pre;
-        font-family: 'Cutive Mono', monospace;
-      }
-      .typing-box {
-        border: 1px dashed black;
-        min-height: 100px;
-        white-space: pre;
-        font-family: 'Cutive Mono', monospace;
-      }
-      #debug {
-        border: 1px dashed black;
-        min-height: 100px;
-        /*white-space: pre;*/
-        /*font-family: 'Cutive Mono', monospace;*/
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div class="container">
       <h1>Typing Game</h1>
       <div>Please type:</div>
-      <div class="text-box">def fibIter(n):
+      <div class="text-box"><span style="background-color: lightgreen">def fibIte</span><span style="background-color: pink">r</span>(n):
     if n < 2:
         return n
     fibPrev = 1
@@ -49,17 +30,7 @@
       <div id="debug">   
       </div>
       
-      <script>
-        $(document).on("keydown", function(e){
-          if (e.keyCode >= 32 && e.keyCode <= 127) {
-            $(".typing-box").append(`<span>${e.key}</span>`);
-          } else if (e.key === "Enter") {
-            $(".typing-box").append(`<br/>`);
-          } else if (e.key == "Backspace") {
-            $(".typing-box").append(`🥔`);
-          }
-        })
-      </script>
+      <script src="app.js"></script>
     </div>
   </body>
 </html>
