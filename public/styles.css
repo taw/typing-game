@@ -1,10 +1,4 @@
-.text-box {
-  border: 1px dashed black;
-  min-height: 100px;
-  white-space: pre;
-  font-family: 'Cutive Mono', monospace;
-}
-.typing-box {
+#text-box {
   border: 1px dashed black;
   min-height: 100px;
   white-space: pre;
@@ -13,4 +7,13 @@
 #debug {
   border: 1px dashed black;
   min-height: 100px;
+}
+.good-code {
+  background-color: lightgreen;
+}
+.error {
+  background-color: pink;
+}
+.error::before {
+  content: "⚠️";
 }
