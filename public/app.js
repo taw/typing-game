@@ -8,9 +8,21 @@ let sample_python_code = `def fibIter(n):
   return fib`;
 
 let setup_code = function(code) {
+  let newline = true;
+  let index = 0;
   for(let i=0; i<code.length; i++) {
     let char = code.substr(i,1);
-    $("#text-box").append(`<span data-index="${i}">${char}</span>`);
+    if(char === "\n") {
+      newline = true;
+      $("#text-box").append(`<span class="typable" data-index="${index}">${char}</span>`);
+      index += 1;
+    } else if(newline && char === " ") {
+      $("#text-box").append(`<span class="indentation" data-for="${index-1}">${char}</span>`);
+    } else {
+      newline = false;
+      $("#text-box").append(`<span class="typable" data-index="${index}">${char}</span>`);
+      index += 1;
+    }
   }
 }
 
@@ -22,11 +34,13 @@ let errors = 0;
 let handle_key = function(key) {
   if(errors > 0) {
     return;
-  }  
-  let current_text_box = $(`#text-box span[data-index=${current_character}]`)
+  }
+  let current_text_box = $(`#text-box .typable[data-index=${current_character}]`)
+  let indentation = $(`#text-box .indentation[data-for=${current_character}]`);
   let expected_key = current_text_box.text();
   if(expected_key === key) {
     current_text_box.addClass("good-code");
+    indentation.addClass("good-code");
     current_character += 1;
     // if done then do something
   } else {
@@ -39,8 +53,10 @@ let handle_backspace = function() {
   if(errors === 0) {
     if(current_character > 0) {
       current_character -= 1;
-      let current_text_box = $(`#text-box span[data-index=${current_character}]`)
+      let current_text_box = $(`#text-box .typable[data-index=${current_character}]`)
       current_text_box.removeClass("good-code");
+      let indentation = $(`#text-box .indentation[data-for=${current_character}]`);
+      indentation.removeClass("good-code");
     }
   } else {
     errors -= 1;
