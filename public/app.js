@@ -73,6 +73,9 @@ let update_timer = function() {
   let ms = (new Date()) - typing_start_time;
   let s = Math.round(ms/1000);
   $(".time span").text(s);
+
+  let cpm = Math.round(60000 * current_character / ms);
+  $(".typing-rate span").text(cpm);
 }
 
 $(document).on("keydown", function(e){
