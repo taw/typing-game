@@ -28,6 +28,8 @@ let setup_code = function(code) {
 
 setup_code(sample_python_code);
 
+let typing_start_time = null;
+let typing_end_time = null;
 let current_character = 0;
 let errors = 0;
 
@@ -64,15 +66,32 @@ let handle_backspace = function() {
   }
 }
 
+let update_timer = function() {
+  if(typing_start_time === null) {
+    return;
+  }
+  let ms = (new Date()) - typing_start_time;
+  let s = Math.round(ms/1000);
+  $(".time span").text(s);
+}
+
 $(document).on("keydown", function(e){
   // console.log("pressed key", e.keyCode, e.key, e.which);
   e.preventDefault();
   if (e.keyCode >= 32 && e.keyCode <= 255) {
+    if(typing_start_time === null) {
+      typing_start_time = new Date();
+    }
     handle_key(e.key);
   } else if (e.key === "Enter") {
+    if(typing_start_time === null) {
+      typing_start_time = new Date();
+    }
     // there is no visual feedback on enter
     handle_key("\n");
   } else if (e.key == "Backspace") {
     handle_backspace();
   }
 })
+
+setInterval(update_timer, 100);
