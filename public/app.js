@@ -1,15 +1,7 @@
-let sample_python_code = `def fibIter(n):
-  if n < 2:
-    return n
-  fibPrev = 1
-  fib = 1
-  for num in xrange(2, n):
-    fibPrev, fib = fib, fib + fibPrev
-  return fib`;
-
-let setup_code = function(code) {
+let setup_code = function({code, title, language}) {
   let newline = true;
   let index = 0;
+  $("#code-title").text(`This is "${title}" code in ${language} from Rosetta Code`);
   for(let i=0; i<code.length; i++) {
     let char = code.substr(i,1);
     if(char === "\n") {
@@ -26,7 +18,13 @@ let setup_code = function(code) {
   }
 }
 
-setup_code(sample_python_code);
+let random_code = function() {
+  let i = Math.floor(Math.random() * code.length);
+  let sample = code[i];
+  setup_code(sample);
+}
+
+random_code();
 
 let typing_start_time = null;
 let typing_end_time = null;
