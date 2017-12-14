@@ -32,6 +32,11 @@ let typing_start_time = null;
 let typing_end_time = null;
 let current_character = 0;
 let errors = 0;
+let finished = false;
+
+let game_finished = function() {
+  finished = true;
+}
 
 let handle_key = function(key) {
   if(typing_start_time === null) {
@@ -42,6 +47,9 @@ let handle_key = function(key) {
   }
   let current_text_box = $(`#text-box .typable[data-index=${current_character}]`)
   let indentation = $(`#text-box .indentation[data-for=${current_character}]`);
+  if(!current_text_box.length) {
+    game_finished();
+  }
   let expected_key = current_text_box.text();
   if(expected_key === key) {
     current_text_box.addClass("good-code");
@@ -70,6 +78,9 @@ let handle_backspace = function() {
 }
 
 let update_timer = function() {
+  if(finished) {
+    return;
+  }
   if(typing_start_time === null) {
     return;
   }
@@ -82,6 +93,9 @@ let update_timer = function() {
 }
 
 $(document).on("keydown", function(e){
+  if(finished) {
+    return;
+  }
   if(e.ctlKey || e.metaKey) {
     return;
   }
