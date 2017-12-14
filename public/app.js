@@ -34,6 +34,9 @@ let current_character = 0;
 let errors = 0;
 
 let handle_key = function(key) {
+  if(typing_start_time === null) {
+    typing_start_time = new Date();
+  }
   if(errors > 0) {
     return;
   }
@@ -79,17 +82,13 @@ let update_timer = function() {
 }
 
 $(document).on("keydown", function(e){
-  // console.log("pressed key", e.keyCode, e.key, e.which);
+  if(e.ctlKey || e.metaKey) {
+    return;
+  }
   e.preventDefault();
   if (e.keyCode >= 32 && e.keyCode <= 255) {
-    if(typing_start_time === null) {
-      typing_start_time = new Date();
-    }
     handle_key(e.key);
   } else if (e.key === "Enter") {
-    if(typing_start_time === null) {
-      typing_start_time = new Date();
-    }
     // there is no visual feedback on enter
     handle_key("\n");
   } else if (e.key == "Backspace") {
